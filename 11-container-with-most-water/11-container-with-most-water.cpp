@@ -7,6 +7,10 @@ public:
         
         while(left < right)
         {
+            //water = max(water, currWater);
+            //currWater = height * length;
+            //height = min(height[left], height[right])
+            //length = right - left;
             maxWater = max(maxWater, min(height[left], height[right]) * (right - left));
             
             if(height[left] > height[right])
