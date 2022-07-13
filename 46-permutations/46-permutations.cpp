@@ -1,6 +1,31 @@
 class Solution {
 public:
     
+    void allPermutations2(int index, vector<int> &nums,vector<vector<int>> &ans)
+    {
+        if(index == nums.size())
+        {
+            ans.push_back(nums);
+            return;
+        }
+        
+        for(int i = index; i < nums.size(); i++)
+        {
+            swap(nums[index], nums[i]);
+            allPermutations2(index + 1, nums, ans);
+            swap(nums[index], nums[i]);
+        }
+    }
+    
+    vector<vector<int>> permute(vector<int>& nums) {
+        
+        vector<vector<int>> ans;
+        allPermutations2(0, nums, ans);
+        
+        return ans;
+    }
+    
+    /*
     void allPermutations(vector<int> &ds, vector<int> &nums, vector<vector<int>> &ans, int freq[])
     {
         if(ds.size() == nums.size())
@@ -35,4 +60,5 @@ public:
         
         return ans;
     }
+    */
 };
