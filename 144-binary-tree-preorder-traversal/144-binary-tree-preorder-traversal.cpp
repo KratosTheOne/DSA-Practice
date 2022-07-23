@@ -26,11 +26,11 @@ public:
         {
             root = st.top();
             st.pop();
+            
             preOrder.push_back(root -> val);
             
             if(root -> right != NULL)
                 st.push(root -> right);
-            
             if(root -> left != NULL)
                 st.push(root -> left);
             
