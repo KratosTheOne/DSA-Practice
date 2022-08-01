@@ -1,19 +1,19 @@
+// T.C & S.C -> O(n) & O(1)
+
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        int n = nums.size();
-        int cs = 0;
-        int maxSum = INT_MIN;
         
-        for(int i = 0; i < n; i++)
+        int sum = 0;
+        int max_sum = INT_MIN;
+        
+        for(auto it : nums)
         {
-            if(nums[i] <= cs + nums[i])
-                cs += nums[i];
-            else
-                cs = nums[i];
-            if(cs > maxSum)
-                maxSum = cs;
+            sum += it;
+            max_sum = max(max_sum, sum);
+            
+            if(sum < 0) sum = 0;
         }
-        return maxSum;
+        return max_sum;
     }
 };
