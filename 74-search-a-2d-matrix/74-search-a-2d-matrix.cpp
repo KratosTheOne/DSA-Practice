@@ -1,18 +1,24 @@
+//T.C & S.C -> O(n) & O(1)
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         
         int n = matrix.size(), m = matrix[0].size();
-        int i = 0, j = m - 1;
         
-        while(i < n && j >= 0)
+        int lo = 0, hi = n * m - 1;
+        
+        while(lo <= hi)
         {
-            if(matrix[i][j] == target)
+            int mid = (lo + (hi - lo) / 2);
+            
+            if(matrix[mid / m][mid % m] == target)
                 return true;
-            if(matrix[i][j] > target)
-                j--;
+            
+            if(matrix[mid / m][mid % m] < target)
+                lo = mid + 1;
+            
             else
-                i++;
+                hi = mid - 1;
         }
         return false;
     }
