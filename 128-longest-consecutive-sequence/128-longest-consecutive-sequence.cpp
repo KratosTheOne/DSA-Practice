@@ -5,7 +5,7 @@ public:
     
     int longestConsecutive(vector<int>& nums) {
         
-        set<int> hashSet;
+        unordered_set<int> hashSet;
         for(int num : nums)
             hashSet.insert(num);
         
