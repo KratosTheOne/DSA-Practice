@@ -1,6 +1,28 @@
 class Solution {
 public:
     
+    //T.C & S.C -> O(n) & O(n)
+    int lengthOfLongestSubstring(string s) {
+        
+        int n = s.size();
+        vector<int> mp(256, -1);
+        int l = 0, r = 0, len = 0;
+        
+        while(r < n)
+        {
+            if(mp[s[r]] != -1)
+                l = max(l, mp[s[r]] + 1);
+            
+            mp[s[r]] = r;
+            
+            len = max(len, r - l + 1);
+            
+            r++;
+        }
+        return len;
+            
+    }
+    /*
     //T.C & S.C -> O(2 * n) & O(n)
     int lengthOfLongestSubstring(string s) {
         
@@ -27,4 +49,5 @@ public:
         
         return maxi;
     }
+    */
 };
