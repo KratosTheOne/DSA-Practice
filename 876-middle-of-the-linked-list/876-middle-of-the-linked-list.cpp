@@ -10,8 +10,23 @@
  */
 class Solution {
 public:
+    
+    //T.C -> O(n)
     ListNode* middleNode(ListNode* head) {
         
+        ListNode* tortoise = head;
+        ListNode* hare = head;
+        
+        while(hare != NULL and hare -> next != NULL)
+        {
+            tortoise = tortoise -> next;
+            hare = hare -> next -> next;
+        }
+        
+        return tortoise;
+        
+        /*
+        //T.C -> O(n)
         ListNode* temp = head;
         int n = 0;
         
@@ -27,5 +42,6 @@ public:
             temp = temp -> next;
         
         return temp;
+        */
     }
 };
