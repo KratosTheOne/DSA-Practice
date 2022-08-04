@@ -9,7 +9,26 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
+        //T.C & S.C -> O(n) & O(1)
+        if(head == NULL)
+            return false;
         
+        ListNode* slow = head;
+        ListNode* fast = head;
+        
+        while(fast -> next != NULL && fast -> next -> next != NULL)
+        {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+            
+            if(slow == fast)
+                return true;
+        }
+        
+        return false;
+        
+        /*
+        //T.C & S.C -> O(n) & O(n)
         unordered_set<ListNode*> set;
         
         ListNode* dummy = head;
@@ -24,5 +43,6 @@ public:
         }
         
         return false;
+        */
     }
 };
