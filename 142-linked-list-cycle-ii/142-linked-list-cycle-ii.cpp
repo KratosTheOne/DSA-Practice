@@ -9,6 +9,7 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
+        //T.C & S.C -> O(n) & O(1)
         
         if(head == NULL)
             return 0;
