@@ -1,6 +1,23 @@
 class Solution {
 public:
+    //T.C & S.C -> O(n) & O(n)
     
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> res;
+        stack<int> st;
+        unordered_map<int, int> mp;
+        for(int n:nums2){
+            while(st.size() && st.top()<n){
+                mp[st.top()]=n;
+                st.pop();
+            }
+            st.push(n);
+        }
+        for(int n:nums1) res.push_back(mp.find(n)!=mp.end() ? mp[n] : -1);
+        return res;
+    }
+    
+    /*
     //T.C & S.C -> O(n * m) & O(1)
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
         vector<int> ans;
@@ -21,4 +38,5 @@ public:
         }
         return ans;
     }
+    */
 };
