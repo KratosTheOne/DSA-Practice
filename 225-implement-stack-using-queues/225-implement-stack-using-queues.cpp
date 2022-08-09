@@ -1,8 +1,44 @@
 class MyStack {
 public:
+    //T.C & S.C -> O(n) & O(n) using single queues;
     
+    queue<int> q;
     
-    //T.C & S.C -> O(n) & O(n) using two queues;
+    MyStack() {
+        
+    }
+    
+    void push(int x) {
+        
+        q.push(x);
+        
+        for(int i = 0; i < q.size() - 1; i++)
+        {
+            q.push(q.front());
+            q.pop();
+        }
+    }
+    
+    int pop() {
+        int y = q.front();
+        
+        q.pop();
+        
+        return y;
+    }
+    
+    int top() {
+        
+        return q.front();
+    }
+    
+    bool empty() {
+        
+        return (q.size() == 0);
+    }
+    
+    /*
+    //T.C & S.C -> O(n) & O(2*n) using two queues;
     queue<int> q1;
     queue<int> q2;
     
@@ -38,6 +74,7 @@ public:
         
         return (q1.size() == 0);
     }
+    */
 };
 
 /**
