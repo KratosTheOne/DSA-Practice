@@ -1,3 +1,5 @@
+//T.C & S.C -> O(n ^ 2) & O(1) 
+
 class Solution {
 public:
     string longestPalindrome(string s) {
