@@ -1,34 +1,51 @@
+//T.C & S.C -> O(V + 2E) & O(V)
+
 class Solution {
-public:
-    vector<int>vis,col;
-    bool dfs(int v, int c, vector<vector<int>>& graph){
-        vis[v]=1;
-        col[v]=c;
-        for(int child:graph[v]){
-            if(vis[child]==0){
-                // here c^1 is for flipping 1 by 0 or 0 by 1, that is flip the current color
-                if(dfs(child,c^1,graph)==false) 
+private:
+    bool check(int start, int V, vector<vector<int>>& adj, vector<int>& color)
+    {
+        queue<int> q;
+        q.push(start);
+
+        color[start] = 0;
+
+        while(!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+
+            for(auto it : adj[node])
+            {
+                if(color[it] == -1)
+                {
+                    color[it] = !color[node];
+                    q.push(it);
+                }
+                else if(color[it] == color[node])
+                {
                     return false;
-            }
-            else{
-                if(col[v]==col[child])
-                    return false;
+                }
             }
         }
+
         return true;
     }
-    
-    bool isBipartite(vector<vector<int>>& graph) {
-        int n=graph.size();
-        vis.resize(n);
-        col.resize(n);
-
-        for(int i=0;i<n;++i){
-            if(vis[i]==0 && dfs(i,0,graph)==false){ 
-                return false;
-            }
-        }
+public:
+    bool isBipartite(vector<vector<int>>& adj) {
         
-        return true;
+        int V = adj.size();
+        
+        vector<int> color(V, -1);
+
+	    for(int i = 0; i < V; i++)
+	    {
+	        if(color[i] == -1)
+	        {
+	            if(check(i, V, adj, color) == false)
+	                return false;
+	        }
+	    }
+
+	    return true;
     }
 };
