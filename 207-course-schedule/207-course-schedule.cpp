@@ -1,57 +1,51 @@
 //T.C & S.C -> O(v + e) & O(v)
 
 class Solution {
-private:
-    bool dfs(int node, vector<int> adj[], vector<int>& vis)
-    {
-        vis[node] = 2;
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         
-        for(auto it : adj[node])
-        {
-            if(!vis[it])
-            {
-                if(dfs(it, adj, vis) == true)
-                    return true;
-            }
-            
-            else if(vis[it] == 2)
-                return true;
-        }
+        int edges = prerequisites.size();
         
-        vis[node] = 1;
+        vector<int> adj[numCourses + 1];
+        vector<int> inDegree(numCourses, 0);
         
-        return false;
-    }
-    
-    void prepareAdj(vector<int> adj[], vector<vector<int>>& prerequisites)
-    {
-        for(int i = 0; i < prerequisites.size(); i++)
+        for(int i = 0; i < edges; i++)
         {
             int u = prerequisites[i][0];
             int v = prerequisites[i][1];
             
             adj[v].push_back(u);
+            inDegree[u]++;
         }
-    }
-    
-public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         
-        vector<int> adj[numCourses];
-        
-        prepareAdj(adj, prerequisites);
-        
-        vector<int> vis(numCourses, 0);
+        queue<int> q;
         
         for(int i = 0; i < numCourses; i++)
         {
-            if(!vis[i])
+            if(inDegree[i] == 0)
             {
-                if(dfs(i, adj, vis))
-                    return false;
+                q.push(i);
             }
         }
         
-        return true;
+        int count = 0;
+        
+        while(!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+            count++;
+            
+            for(auto it : adj[node])
+            {
+                inDegree[it]--;
+                if(inDegree[it] == 0)
+                {
+                    q.push(it);
+                }
+            }
+        }
+        
+        return (count == numCourses);
     }
 };
