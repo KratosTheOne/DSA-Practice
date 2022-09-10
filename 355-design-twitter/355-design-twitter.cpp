@@ -1,3 +1,5 @@
+//T.C & S.C -> O(n)
+
 class Twitter {
 public:
     // to store who each user is following
