@@ -1,38 +1,29 @@
-//T.C & S.C -> O(n log n) & O(n)
-
-#define pp pair<int, int>
+//T.C & S.C -> O(n)
 
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-
+        
         unordered_map<int, int> mp;
-
-        for(int i = 0; i < nums.size(); i++)
+        
+        for(int i : nums)
+            mp[i]++;
+        
+        vector<vector<int>> buckets(nums.size() + 1);
+        
+        for(auto val : mp)
         {
-            mp[nums[i]]++;
+            buckets[val.second].push_back(val.first);
         }
-
-        priority_queue<pp, vector<pp>, greater<pp>> minHeap;
-
-        for(auto it = mp.begin(); it != mp.end(); it++)
-        {
-            minHeap.push({it -> second, it -> first});
-
-            if(minHeap.size() > k)
-            {
-                minHeap.pop();
-            }
-        }
-
+        
         vector<int> ans;
-
-        while(!minHeap.empty())
+        
+        for(int i = buckets.size() - 1; i >= 0 and ans.size() < k; i--)
         {
-            ans.push_back(minHeap.top().second);
-            minHeap.pop();
+            for(auto x : buckets[i])
+                ans.push_back(x);
         }
-
+        
         return ans;
     }
 };
